@@ -1,0 +1,10 @@
+/*
+Place your custom CSS here
+*/
+.widget-alias-tags {
+    align-content: start;
+}
+
+.alias-tag {
+    margin-right: 10px;
+}
