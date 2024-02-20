@@ -5,7 +5,7 @@
             <widgetFile path="AliasTags.xml"/>
         </widgetFiles>
         <files>
-            <file path="evosus, inc//aliastags"/>
+            <file path="evosus//aliastags"/>
         </files>
     </clientModule>
 </package>
