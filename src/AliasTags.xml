@@ -12,6 +12,19 @@
                 <caption>Default value</caption>
                 <description>Sample text input</description>
             </property>
+
+            <property key="masterTagsList" type="attribute">
+                <caption>Master Tag String</caption>
+                <description>Master tag String attribute. This string should contain all your tags, the widget will split them up based on the delimiter.</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+
+            <property key="delimiter" type="string" required="false" defaultValue="' '">
+                <caption>String to use as a delimiter between tags in the provided tags String.</caption>
+                <description>String to use as a delimiter between tags in the provided tags String.</description>
+            </property>
         </propertyGroup>
     </properties>
 </widget>

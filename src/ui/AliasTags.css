@@ -12,11 +12,13 @@ Place your custom CSS here
     background: lightgray;
     height: 30px;
     align-items: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 .alias-tag-icon {
     border: none;
-    /* opacity: 0; */
+    opacity: 0;
     font-size: 20px;
 }
 
@@ -35,24 +37,6 @@ Place your custom CSS here
     border-bottom-left-radius: 5px;
 }
 
-.alias-tag-text {
-    opacity: 1!;
-    color: black;
-}
-
-.alias-tag-text .disabled {
-    opacity: 0;
-    color: black;
-}
-
-.alias-tag-text-disabled {
-    pointer-events: none;
-}
-
-.alias-tag-text:hover {
-    cursor: default;
-}
-
 .alias-tag-delete:hover {
     background-color: lightcoral;
     border-top-right-radius: 5px;
@@ -67,18 +51,73 @@ Place your custom CSS here
     background-color: white;
 }
 
+.alias-tag-input {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.alias-tag-container:hover .alias-tag-icon {
+    opacity: 1;
+    animation: fade-in 0.25s;
+}
+
+@keyframes fade-in {
+    0%   {opacity: 0;}
+    25%  {opacity: 0;}
+    50%  {opacity: 0.5;}
+    100% {opacity: 1;}
+}
+
+.input,
+.textarea {
+  /* border: 1px solid #ccc; */
+  /* font-family: inherit; */
+  /* font-size: inherit; */
+  padding: 4px 6px;
+  /* height: 100%; */
+  white-space: nowrap;
+  cursor: default;
+}
+
+.input:focus-visible {
+    outline: none;
+    cursor: text;
+}
+
 .input-wrap {
-    position: relative;
+  position: relative;
 }
-
 .input-wrap .input {
-    position: absolute;
-    width: 100%;
-    left: 0;
+  position: absolute;
+  /* width: 100%; */
+  left: 0;
+}
+.width-machine {
+  /*   Sort of a magic number to add extra space for number spinner */
+  padding: 0 1rem;
 }
 
-.width-machine {
-    /*   Sort of a magic number to add extra space for number spinner */
-    padding: 0 1rem;
-  }
+.confirm-delete-text {
+    width: 125px;
+    padding: 0px 5px;
+    text-align: center;
+}
+
+.confirm-delete-button {
+    background-color: lightcoral;
+    border: none;
+    height: 100%;
+}
+
+.confirm-delete-button-left {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: dimgray;
+    color: white;
+}
+
+.confirm-delete-button-right {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
   

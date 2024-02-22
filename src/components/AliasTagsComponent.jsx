@@ -3,10 +3,16 @@ import { Tag } from "./Tag";
 export class AliasTagsComponent extends Component {
     constructor(props) {
         super(props);
-        console.error(props);
+        console.error('props', props);
+        const tagsFromAttribute = this.props.masterTagsList;
+        console.error('tagsFromAttribute', tagsFromAttribute);
+        this.delimiter = this.props.delimiter ?? ' ';
+        console.error('delimiter');
+        // const tagsArray = props.sampleText.split(this.props.delimiter);
         const tagsArray = props.sampleText.split(' ');
         this.state={
-            tagsArray: tagsArray
+            tagsArray: tagsArray,
+            tagsFromAttribute: this.props.masterTagsList
         };
     }
 
@@ -19,4 +25,9 @@ export class AliasTagsComponent extends Component {
             }</div>
         )
     } 
+
+    componentDidMount() {
+        console.error('componentDidMount', this.state);
+        console.error('this.state.tagsFromAttribute', this.state.tagsFromAttribute);
+    }
 }
