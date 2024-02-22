@@ -14,11 +14,11 @@ export class Tag extends Component {
         }
         this.container = createRef();
         this.input = createRef();
+        this.saveHandler = this.props.saveHandler;
     }
 
     render() {
         if (this.state.deleted) {
-            // return <div>I"VE BEEN DELETED!</div>
             return null;
         } else if (this.state.confirmDelete) {
             return (
@@ -48,26 +48,24 @@ export class Tag extends Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount', this.state);
+        console.debug('componentDidMount', this.state);
         this.input.current.innerHTML = this.state.tagText;
         this.setSpanValue(this.state.tagText);
     }
 
     componentDidUpdate() {
-        console.log('componentDidUpdate', this.state);
-        console.log("this.input.current", this.input.current);
+        console.debug('componentDidUpdate', this.state);
+        console.debug("this.input.current", this.input.current);
 
-        console.log('this.state.confirmDelete', this.state.confirmDelete);
-        console.log('this.state.editCount', this.state.editCount);
+        console.debug('this.state.confirmDelete', this.state.confirmDelete);
+        console.debug('this.state.editCount', this.state.editCount);
         if (!this.state.confirmDelete) {
             if (this.input.current == null) {
-                console.error('creating new ref');
+                console.debug('creating new ref');
                 this.input = createRef();
             } else if (this.input.current.innerHTML != this.state.tagText) {
-                console.error('setting span value');
+                console.debug('setting span value');
                 this.setSpanValue(this.state.tagText);
-            } else {
-                console.error('not doing a thing');
             }
         }       
     }
@@ -104,6 +102,7 @@ export class Tag extends Component {
             tagText: newTagText,
             originalTagText: newTagText
         });
+        this.saveHandler();
         //TODO: Call microflow to save tag
     }
 
@@ -112,13 +111,13 @@ export class Tag extends Component {
     }
 
     deleteTag() {
-        console.error('state before:', this.state);
+        console.debug('state before:', this.state);
         this.setState({deleted: true});
     }
 
     setSpanValue(value) {
-        console.error('setSpanValue', value);
-        console.error('this.input', this.input);
+        console.debug('setSpanValue', value);
+        console.debug('this.input', this.input);
         this.input.current.innerHTML = value;
     }
 }

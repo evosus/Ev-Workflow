@@ -1,33 +1,50 @@
-import { Component, createElement } from "react";
+import { Component, createElement, } from "react";
 import { Tag } from "./Tag";
+
 export class AliasTagsComponent extends Component {
     constructor(props) {
         super(props);
-        console.error('props', props);
-        const tagsFromAttribute = this.props.masterTagsList;
-        console.error('tagsFromAttribute', tagsFromAttribute);
         this.delimiter = this.props.delimiter ?? ' ';
-        console.error('delimiter');
-        // const tagsArray = props.sampleText.split(this.props.delimiter);
-        const tagsArray = props.sampleText.split(' ');
+        console.debug('delimiter', this.delimiter);
         this.state={
-            tagsArray: tagsArray,
-            tagsFromAttribute: this.props.masterTagsList
+            tagsArray: [],
+            masterTagsList: this.props.masterTagsList,
+            tagsArrayHasBeenSet: false
         };
     }
 
     render() {
+        const value = this.props.masterTagsList.value;
+        console.debug('AliasTagsComponent render()', value);
+        this.setTagsArray(value);
         return (
             <div className="widget-alias-tags">{
                 this.state.tagsArray.map(tag => {
-                    return <Tag tag={tag}/>
+                    return <Tag tag={tag} saveHandler={this.saveHandler.bind(this)}/>
                 })
             }</div>
         )
     } 
 
-    componentDidMount() {
-        console.error('componentDidMount', this.state);
-        console.error('this.state.tagsFromAttribute', this.state.tagsFromAttribute);
+    setTagsArray(value) {
+        console.debug('setTagsArray', value);
+        console.debug('this.state.tagsArrayHasBeenSet', this.state.tagsArrayHasBeenSet);
+        if (!this.state.tagsArrayHasBeenSet &&  value != undefined) {
+            console.debug('this.delimiter', this.delimiter);
+            const tagsArray1 = value.split(this.delimiter)
+            console.debug('setting tagsArray1', tagsArray1);
+            this.setState({
+                tagsArray: tagsArray1,
+                tagsArrayHasBeenSet: true
+            });
+        }
+    }
+
+    saveHandler() {
+        console.debug('saveHandler', this.props);
+        console.debug('saveHandler', this.state);
+        const value = this.props.masterTagsList.value;
+        this.setState({tagsArrayHasBeenSet: false});
+        this.setTagsArray(value);
     }
 }
