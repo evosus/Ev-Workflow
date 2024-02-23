@@ -1,4 +1,4 @@
-## AliasTags
+## Workflow
 [My widget description]
 
 ## Features

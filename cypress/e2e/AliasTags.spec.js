@@ -1,4 +1,4 @@
-describe("AliasTags", () => {
+describe("Workflow", () => {
     it("changes caption when attribute value is changed", () => {
         cy.visit("/");
 

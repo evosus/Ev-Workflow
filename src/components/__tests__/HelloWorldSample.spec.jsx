@@ -1,10 +1,10 @@
 import { createElement } from "react";
 import { shallow } from "enzyme";
 
-import { AliasTags } from "../AliasTags";
+import { Workflow } from "../Workflow";
 
-describe("AliasTags", () => {
-    const createHelloWorld = (props) => shallow(<AliasTags {...props} />);
+describe("Workflow", () => {
+    const createHelloWorld = (props) => shallow(<Workflow {...props} />);
 
     it("should render the structure correctly", () => {
         const helloWorldProps = {

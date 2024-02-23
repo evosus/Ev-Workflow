@@ -1,7 +1,7 @@
 import { Component, createElement, } from "react";
 import { Tag } from "./Tag";
 
-export class AliasTagsComponent extends Component {
+export class WorkflowContainer extends Component {
     constructor(props) {
         super(props);
         this.delimiter = this.props.delimiter ?? ' ';
@@ -13,12 +13,13 @@ export class AliasTagsComponent extends Component {
         };
     }
 
+
     render() {
         const value = this.props.masterTagsList.value;
-        console.debug('AliasTagsComponent render()', value);
+        console.debug('WorkflowContainer render()', value);
         this.setTagsArray(value);
         return (
-            <div className="widget-alias-tags">{
+            <div className="ev-workflow-container">{
                 this.state.tagsArray.map(tag => {
                     return <Tag tag={tag} saveHandler={this.saveHandler.bind(this)}/>
                 })

@@ -22,24 +22,24 @@ export class Tag extends Component {
             return null;
         } else if (this.state.confirmDelete) {
             return (
-                <div className="alias-tag-container">
+                <div className="ev-workflow-tag-container">
                     <button className={"confirm-delete-button confirm-delete-button-left cancel-delete-button"} onClick={this.toggleConfirmDelete.bind(this)}>
                         Cancel
                     </button>
                     <span className="confirm-delete-text">Are you sure?</span>
-                    <button className={"confirm-delete-button confirm-delete-button-right alias-tag-delete"} onClick={this.deleteTag.bind(this)}>
+                    <button className={"confirm-delete-button confirm-delete-button-right ev-workflow-delete"} onClick={this.deleteTag.bind(this)}>
                         Delete
                     </button>
                 </div>
             );
         } else {
             return (
-                <div ref={this.container} className="alias-tag-container">
-                    <button className={"alias-tag-button alias-tag-icon alias-tag-edit"} onClick={this.state.editMode ? this.saveTag.bind(this):this.toggleEdit.bind(this)}>
+                <div ref={this.container} className="ev-workflow-tag-container">
+                    <button className={"ev-workflow-button ev-workflow-icon ev-workflow-edit"} onClick={this.state.editMode ? this.saveTag.bind(this):this.toggleEdit.bind(this)}>
                         <i className={"mdi"+this.state.confirmDelete?(this.state.editMode?" mdi-check":" mdi-edit"):""}></i>
                     </button>
-                        <span tabIndex="0" ref={this.input} className={"input alias-tag-input" + (this.state.editMode?" edit-mode":"")} role="textbox" contenteditable={this.state.editMode?"true":"false"}></span>
-                    <button className={"alias-tag-button alias-tag-icon alias-tag-delete"} onClick={this.state.editMode ? this.cancelEdit.bind(this):this.toggleConfirmDelete.bind(this)}>
+                        <span tabIndex="0" ref={this.input} className={"input ev-workflow-input" + (this.state.editMode?" edit-mode":"")} role="textbox" contenteditable={this.state.editMode?"true":"false"}></span>
+                    <button className={"ev-workflow-button ev-workflow-icon ev-workflow-delete"} onClick={this.state.editMode ? this.cancelEdit.bind(this):this.toggleConfirmDelete.bind(this)}>
                         <i className={this.state.editMode ? "mdi mdi-close":"mdi mdi-delete"}></i>
                     </button>
                 </div>

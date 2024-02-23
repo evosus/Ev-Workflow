@@ -96,5 +96,5 @@ export function getProperties(values, defaultProperties, target) {
 //  * @returns {string}
 //  */
 // export function getCustomCaption(values, platform) {
-//     return "AliasTags";
+//     return "Workflow";
 // }

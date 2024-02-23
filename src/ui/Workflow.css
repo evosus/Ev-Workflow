@@ -1,11 +1,11 @@
 /*
 Place your custom CSS here
 */
-.widget-alias-tags {
+.ev-workflow-container {
     display: flex;
 }
 
-.alias-tag-container {
+.ev-workflow-tag-container {
     display: flex;
     margin-right: 10px;
     border-radius: 5px;
@@ -16,28 +16,28 @@ Place your custom CSS here
 }
 
 
-.alias-tag-icon {
+.ev-workflow-icon {
     border: none;
     opacity: 0;
     font-size: 20px;
 }
 
-.alias-tag-icon:hover {
+.ev-workflow-icon:hover {
     /* font-size: 22px; */
 }
 
-.alias-tag-button {
+.ev-workflow-button {
     border: none;
     background: rgba(0, 0, 0, 0)
 }
 
-.alias-tag-edit:hover {
+.ev-workflow-edit:hover {
     background-color: lightgreen;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-.alias-tag-delete:hover {
+.ev-workflow-delete:hover {
     background-color: lightcoral;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -51,12 +51,12 @@ Place your custom CSS here
     background-color: white;
 }
 
-.alias-tag-input {
+.ev-workflow-input {
     padding-left: 5px;
     padding-right: 5px;
 }
 
-.alias-tag-container:hover .alias-tag-icon {
+.ev-workflow-tag-container:hover .ev-workflow-icon {
     opacity: 1;
     animation: fade-in 0.25s;
 }
