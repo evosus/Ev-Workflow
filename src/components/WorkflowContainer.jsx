@@ -1,51 +1,74 @@
-import { Component, createElement, } from "react";
+import { Component, createElement, useEffect, useState } from "react";
 import { Tag } from "./Tag";
 
-export class WorkflowContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.delimiter = this.props.delimiter ?? ' ';
-        console.debug('delimiter', this.delimiter);
-        this.state={
-            tagsArray: [],
-            masterTagsList: this.props.masterTagsList,
-            tagsArrayHasBeenSet: false
-        };
-    }
+// export class WorkflowContainer extends Component {
+export function WorkflowContainer(props) {
 
+    const [mounted, setMounted] = useState(false);
+    const [tagsArray, setTagsArray] = useState([]);
+    const [masterTagsList, setMasterTagsList] = useState(props.masterTagsList);
+    const [tagComponents, setTagComponents] = useState([]);
+    const [limit, setLimit] = useState(props.limit ?? 5);
+    const [delimiter, setDelimiter] = useState(props.delimiter ?? ' ');
+    
 
-    render() {
-        const value = this.props.masterTagsList.value;
-        console.debug('WorkflowContainer render()', value);
-        this.setTagsArray(value);
-        return (
-            <div className="ev-workflow-container">{
-                this.state.tagsArray.map(tag => {
-                    return <Tag tag={tag} saveHandler={this.saveHandler.bind(this)}/>
-                })
-            }</div>
-        )
-    } 
+    useEffect(() => {
+        setMounted(true);
+        return () => {};
+    }, []);
 
-    setTagsArray(value) {
-        console.debug('setTagsArray', value);
-        console.debug('this.state.tagsArrayHasBeenSet', this.state.tagsArrayHasBeenSet);
-        if (!this.state.tagsArrayHasBeenSet &&  value != undefined) {
-            console.debug('this.delimiter', this.delimiter);
-            const tagsArray1 = value.split(this.delimiter)
-            console.debug('setting tagsArray1', tagsArray1);
-            this.setState({
-                tagsArray: tagsArray1,
-                tagsArrayHasBeenSet: true
+    useEffect(() => {
+        console.warn('useEffect', props);
+        if (mounted) {
+            updateTagsArray(props.masterTagsList.value);
+        }
+        return () => {};
+    }, [props.masterTagsList])
+
+    const updateTagsArray = (value) => {
+        console.warn('updateTagsArray', value);
+
+        console.error('this.state.masterTagsList', masterTagsList);
+        console.error('this.props.masterTagsList', props.masterTagsList.value);
+        if (value != undefined) {
+            console.info('this.state.masterTagsList', masterTagsList.value);
+            const tagsArraySliced = value.split(delimiter).slice(0, limit);
+            const newTagComponents = tagsArraySliced.map((tag) => {
+                return <Tag tag={tag} />
             });
+            console.error('newTagComponenets', newTagComponents)
+            setMasterTagsList(value);
+            setTagsArray(tagsArraySliced);
+            setTagComponents(newTagComponents);
         }
     }
 
-    saveHandler() {
-        console.debug('saveHandler', this.props);
-        console.debug('saveHandler', this.state);
-        const value = this.props.masterTagsList.value;
-        this.setState({tagsArrayHasBeenSet: false});
-        this.setTagsArray(value);
+    const addTag = () => {
+        // console.debug('addTag');
+        // const newTagsArray = tagsArray.splice(0, 0, 'New Value');
+        // const newTagsText = 'New Tag' + this.delimiter + masterTagsList;
+        // setMasterTagsList(newTagsText);
+        // setTagsArray(newTagsArray);
+        // updateTagsArray()
+        // this.setState({
+        //     masterTagsList: newTagsText,
+        //     tagsArrayHasBeenSet: false,
+        //     tagsArray: newTagsArray
+        // });
+        // this.setTagsArray(newTagsText);
     }
+    
+    return (
+        <div className="ev-workflow-container">
+            <button className="ev-workflow-admin-button ev-workflow-admin-button-add" onClick={addTag.bind(this)}><i className="mdi mdi-plus"></i>Add</button>
+            {tagComponents.map((tag) => {
+                return tag;
+            })}
+            {tagsArray.length - limit > 0 ?
+                <button className="ev-workflow-admin-button ev-workflow-admin-button-view-all">
+                    <i className="mdi mdi-open-in-new"></i>{(tagsArray.length - limit)} more
+                </button>: null
+            }
+        </div>
+    )
 }

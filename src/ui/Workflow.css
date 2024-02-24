@@ -12,6 +12,7 @@ Place your custom CSS here
     background: lightgray;
     height: 30px;
     align-items: center;
+    justify-content: space-between;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -73,7 +74,7 @@ Place your custom CSS here
   /* border: 1px solid #ccc; */
   /* font-family: inherit; */
   /* font-size: inherit; */
-  padding: 4px 6px;
+  /* padding: 4px 6px; */
   /* height: 100%; */
   white-space: nowrap;
   cursor: default;
@@ -119,5 +120,32 @@ Place your custom CSS here
 .confirm-delete-button-right {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.ev-workflow-admin-button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    height: 31px;
+    margin-right: 10px;
+    background-color: dimgray;
+    color: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    /* margin-top: 1px; */
+}
+
+.ev-workflow-admin-button-view-all {
+    min-width: 105px;
+}
+
+.ev-workflow-admin-button-add {
+    min-width: 80px;
+}
+
+.ev-workflow-admin-button > i.mdi {
+    font-size: 20px;
+    margin-right: 5px;
 }
   
