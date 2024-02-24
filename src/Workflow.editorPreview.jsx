@@ -3,7 +3,7 @@ import { WorkflowContainer } from "./components/WorkflowContainer";
 
 export class preview extends Component {
     render() {
-        return <WorkflowContainer sampleText={this.props.sampleText} masterTagsList={this.props.masterTagsList} delimiter={this.props.delimiter}/>;
+        return <WorkflowContainer masterTagsList={this.props.masterTagsList} delimiter={this.props.delimiter}/>;
     }
 }
 

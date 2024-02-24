@@ -5,6 +5,6 @@ import "./ui/Workflow.css";
 
 export class Workflow extends Component {
     render() {
-        return <WorkflowContainer sampleText={this.props.sampleText} masterTagsList={this.props.masterTagsList} delimiter={this.props.delimiter} />;
+        return <WorkflowContainer {...this.props}/>;
     }
 }

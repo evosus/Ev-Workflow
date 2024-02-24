@@ -11,9 +11,6 @@ export function Tag(props) {
     const [originalTagText, setOriginalTagText] = useState(props.tag);
     const [deleted, setDeleted] = useState(false);
 
-
-    
-
     useEffect(() => {
         setMounted(true);
         return () => {};
@@ -38,7 +35,6 @@ export function Tag(props) {
         } catch (e) {
             console.error(e);
         }
-
         setEditMode(!editMode);
     }
 
@@ -53,11 +49,18 @@ export function Tag(props) {
     const saveTag = () => {
         console.warn("saveTag", input);
         var newTagText = input.current.innerHTML;
-        toggleEdit();
-        console.info("newTagText", newTagText);
-        setTagText(newTagText);
-        setOriginalTagText(newTagText);
-        setSpanValue(tagText);
+        const result = props.saveTag(props.index, originalTagText, newTagText);
+        if (!result) {
+            alert('DUPLICATE TAG NOT ALLOWED');
+            console.error('DUPLICATE TAG NOT ALLOWED');
+            cancelEdit();
+        } else {
+            console.info("newTagText", newTagText);
+            setTagText(newTagText);
+            setOriginalTagText(newTagText);
+            setSpanValue(tagText);
+            toggleEdit();
+        }
         //TODO: Call microflow to save tag
     }
 
@@ -67,13 +70,14 @@ export function Tag(props) {
     }
 
     const deleteTag = () => {
+        const deleteResult = props.deleteTag();
         console.debug('state before:', deleted);
         setDeleted(true);
     }
 
     const setSpanValue = (value) => {
-        console.warn('setSpanValue', value);
-        console.warn('this.input', input);
+        // console.warn('setSpanValue', value);
+        // console.warn('this.input', input);
         input.current.innerHTML = value;
     }
 
