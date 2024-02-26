@@ -21,6 +21,11 @@
                 <description/>
             </property>
 
+            <property key="onAddAction" type="action" required="false">
+                <caption>Save Microflow</caption>
+                <description/>
+            </property>
+
             <property key="delimiter" type="string" required="false" defaultValue="' '">
                 <caption>String to use as a delimiter between tags in the provided tags String.</caption>
                 <description>String to use as a delimiter between tags in the provided tags String.</description>

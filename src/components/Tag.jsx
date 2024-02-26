@@ -3,7 +3,6 @@ import { Component, createRef, createElement, useState, useEffect, useRef } from
 // export class Tag extends Component {
 export function Tag(props) {
     const input = useRef(null);
-
     const [mounted, setMounted] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
@@ -17,7 +16,7 @@ export function Tag(props) {
     }, []);
 
     useEffect(() => {
-        console.error('useEffect', input);
+        console.info('useEffect', tagText + props.index);
         if (mounted && input.current!= null) {
             setSpanValue(tagText);
         }
@@ -29,21 +28,22 @@ export function Tag(props) {
     }, [props.tag]);
 
     const toggleEdit = () => {
-        console.debug("toggleEdit")
+        console.info("toggleEdit")
         try {
             console.info(tagText);
         } catch (e) {
-            console.error(e);
+            console.info(e);
         }
         setEditMode(!editMode);
     }
 
     const cancelEdit = () => {
-        console.debug("cancelEdit");
-        console.debug("current text: " + tagText);
+        console.info("cancelEdit");
+        console.info("current text: " + tagText);
         setTagText(originalTagText);
         setSpanValue(originalTagText);
-        console.debug("set tagText back to: " + tagText);
+        console.info("set tagText back to: " + tagText);
+        setEditMode(false); //now canceling out of edit mode
     }
 
     const saveTag = () => {
@@ -51,9 +51,14 @@ export function Tag(props) {
         var newTagText = input.current.innerHTML;
         const result = props.saveTag(props.index, originalTagText, newTagText);
         if (!result) {
-            alert('DUPLICATE TAG NOT ALLOWED');
-            console.error('DUPLICATE TAG NOT ALLOWED');
-            cancelEdit();
+           // alert('DUPLICATE TAG NOT ALLOWED');
+            console.info('DUPLICATE TAG NOT ALLOWED');
+           // cancelEdit();
+           console.info("newTagText", newTagText);
+           setTagText(newTagText);
+           setOriginalTagText(newTagText);
+           setSpanValue(tagText);
+           toggleEdit();
         } else {
             console.info("newTagText", newTagText);
             setTagText(newTagText);
@@ -65,19 +70,17 @@ export function Tag(props) {
     }
 
     const toggleConfirmDelete = () => {
-        console.warn('toggleConfirmDelete', tagText);
+        console.info('toggleConfirmDelete', tagText);
         setConfirmDelete(!confirmDelete);
     }
 
     const deleteTag = () => {
-        const deleteResult = props.deleteTag();
-        console.debug('state before:', deleted);
+        const deleteResult = props.deleteTag(props.index, tagText); //now passing index and tag text arguments
+        console.error('state before:', deleted);
         setDeleted(true);
     }
 
     const setSpanValue = (value) => {
-        // console.warn('setSpanValue', value);
-        // console.warn('this.input', input);
         input.current.innerHTML = value;
     }
 

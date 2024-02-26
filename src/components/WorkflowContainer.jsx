@@ -16,14 +16,14 @@ export function WorkflowContainer(props) {
     
 
     useEffect(() => {
-        console.warn('useEffect 1', props);
+        console.info('useEffect 1', props);
         setMounted(true);
         return () => {};
     }, []);
 
     useEffect(() => {
         if (mounted) {
-            console.warn('useEffect 2', props);
+            console.info('useEffect 2', props);
             updateAllTags(props.masterTagsList.value);
             props.masterTagsList
         }
@@ -31,23 +31,22 @@ export function WorkflowContainer(props) {
     }, [props.masterTagsList])
 
     const updateAllTags = (value) => {
-        console.warn('updateAllTags', value);
-        console.error('updateAllTags masterTagsList', masterTagsList);
-        console.error('updateAllTags props.masterTagsList.value', props.masterTagsList.value);
+        console.info('updateAllTags', value);
+        console.info('updateAllTags masterTagsList', masterTagsList);
+        console.info('updateAllTags props.masterTagsList.value', props.masterTagsList.value);
         if (value != undefined) {
             const tagCount = value.split(delimiter).filter(i => i).length;
-            console.warn('updateAllTags tagCount', tagCount);
+            console.info('updateAllTags tagCount', tagCount);
             var tagCountDisplay = tagCount - limit;
             if (tagCount > 99) {
                 tagCountDisplay = '99+'; 
             }
-            console.warn('updateAllTags tagCountDisplay', tagCountDisplay);
+            console.info('updateAllTags tagCountDisplay', tagCountDisplay);
             const tagsArraySliced = value.split(delimiter).filter(i => i).slice(0, limit);
-            console.warn('updateAllTags tagsArraySliced', tagsArraySliced);
+            console.info('updateAllTags tagsArraySliced', tagsArraySliced);
             const newTagComponents = tagsArraySliced.map((tag, index) => {
                 return <Tag tag={tag} index={index} saveTag={saveTag.bind(this)} deleteTag={deleteTag.bind(this)}/>
             });
-            // console.error('newTagComponenets', newTagComponents)
             setMasterTagsList(value);
             setTagsArray(tagsArraySliced);
             setTagComponents(newTagComponents);
@@ -57,62 +56,44 @@ export function WorkflowContainer(props) {
     }
 
     const addTag = () => {
-        console.debug('addTag');
+        console.info('addTag');
         tagsArray.splice(0, 0, 'New Value');
-        const newTagsText = 'New Tag' + delimiter + masterTagsList;
+        const newTagsText = 'new' + delimiter + masterTagsList;
         setMasterTagsList(newTagsText);
         setTagsArray(tagsArray);
         updateAllTags(newTagsText);
-        // this.setState({
-        //     masterTagsList: newTagsText,
-        //     tagsArrayHasBeenSet: false,
-        //     tagsArray: newTagsArray
-        // });
-        // this.setTagsArray(newTagsText);
+        props.onAddAction.execute(); //added och call
     }
 
     const saveTag = (index, oldValue, newValue) => {
-        console.debug('saveTag', index, oldValue, newValue);
-        console.debug('saveTag props.masterTagsList.value', props.masterTagsList.value);
+        console.info('saveTag', index, oldValue, newValue);
+        console.info('saveTag props.masterTagsList.value', props.masterTagsList.value);
         const fullTagsArray = props.masterTagsList.value.split(delimiter).filter(i => i);
-        console.debug('saveTag fullTagsArray', fullTagsArray);
+        console.info('saveTag fullTagsArray', fullTagsArray);
         // check if tag already exists
         const lowerCaseTags = fullTagsArray.map(tag => tag.toLowerCase());
         const duplicateIndex = lowerCaseTags.indexOf(newValue.toLowerCase());
         if (duplicateIndex != -1 && duplicateIndex != index) {
-            console.error("DUPLICATE!");
+            console.info("DUPLICATE!");
             return false;
         }
         const oldTagValue = fullTagsArray[index];
-        if (oldTagValue != oldValue) {
-            console.debug('MISTMATCH', oldTagValue, oldValue);
-            return false;
-        } else {
-            console.debug('NO MISTMATCH', index, oldValue);
+            console.info('NO MISTMATCH', index, oldValue);
             fullTagsArray.splice(index, 1, newValue);
-            console.debug('saveTag fullTagsArray', fullTagsArray);
+            console.info('saveTag fullTagsArray', fullTagsArray);
             const updatedMasterTagsList = fullTagsArray.join(delimiter);
-            // updateAllTags(updatedMasterTagsList);
-            console.error('props.onChangeAction', props.onChangeAction);
-            console.error('SETTING VALUE ON MASTERTAGSLIST', props);
+            console.info('props.onChangeAction', props.onChangeAction);
+            console.info('SETTING VALUE ON MASTERTAGSLIST', props);
             props.masterTagsList.setValue(updatedMasterTagsList);
             if (props.onChangeAction) {
                 props.onChangeAction.execute();
             }
             return true;
-            // props.onChangeAction(updatedMasterTagsList);
-        }
     }
 
     const deleteTag = (index, value) => {
         saveTag(index, value, '');
-        // const fullTagsArray = props.masterTagsList.value.split(delimiter).filter(i => i);
-        // fullTagsArray.splice(index, 1);
-        // const updatedMasterTagsList = fullTagsArray.join(delimiter);
-        // updateAllTags(updatedMasterTagsList);
-        // if (props.onChangeAction) {
-        //     props.onChangeAction.execute();
-        // }
+        console.error('deleting element at index:', index);
     }
     
     return (
