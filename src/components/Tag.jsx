@@ -1,4 +1,5 @@
-import { Component, createRef, createElement, useState, useEffect, useRef } from "react";
+// eslint-disable-next-line no-unused-vars
+import { Component, createElement, createRef, useEffect, useRef, useState } from "react";
 
 // export class Tag extends Component {
 export function Tag(props) {
@@ -15,9 +16,12 @@ export function Tag(props) {
         return () => {};
     }, []);
 
+    const setSpanValue = value => {
+        input.current.innerHTML = value;
+    };
+
     useEffect(() => {
-        console.info('useEffect', tagText + props.index);
-        if (mounted && input.current!= null) {
+        if (mounted && input.current != null) {
             setSpanValue(tagText);
         }
     }, [mounted, tagText, confirmDelete]);
@@ -28,89 +32,78 @@ export function Tag(props) {
     }, [props.tag]);
 
     const toggleEdit = () => {
-        console.info("toggleEdit")
-        try {
-            console.info(tagText);
-        } catch (e) {
-            console.info(e);
-        }
         setEditMode(!editMode);
-    }
+    };
 
     const cancelEdit = () => {
-        console.info("cancelEdit");
-        console.info("current text: " + tagText);
         setTagText(originalTagText);
         setSpanValue(originalTagText);
-        console.info("set tagText back to: " + tagText);
         setEditMode(false); //now canceling out of edit mode
-    }
+    };
 
     const saveTag = () => {
-        console.warn("saveTag", input);
         var newTagText = input.current.innerHTML;
-        const result = props.saveTag(props.index, originalTagText, newTagText);
-        if (!result) {
-           // alert('DUPLICATE TAG NOT ALLOWED');
-            console.info('DUPLICATE TAG NOT ALLOWED');
-           // cancelEdit();
-           console.info("newTagText", newTagText);
-           setTagText(newTagText);
-           setOriginalTagText(newTagText);
-           setSpanValue(tagText);
-           toggleEdit();
-        } else {
-            console.info("newTagText", newTagText);
-            setTagText(newTagText);
-            setOriginalTagText(newTagText);
-            setSpanValue(tagText);
-            toggleEdit();
-        }
-        //TODO: Call microflow to save tag
-    }
+        props.saveTag(props.index, originalTagText, newTagText);
+        setTagText(newTagText);
+        setOriginalTagText(newTagText);
+        setSpanValue(tagText);
+        toggleEdit();
+    };
 
     const toggleConfirmDelete = () => {
-        console.info('toggleConfirmDelete', tagText);
         setConfirmDelete(!confirmDelete);
-    }
+    };
 
     const deleteTag = () => {
-        const deleteResult = props.deleteTag(props.index, tagText); //now passing index and tag text arguments
-        console.error('state before:', deleted);
+        props.deleteTag(props.index, tagText); //now passing index and tag text arguments
         setDeleted(true);
-    }
+    };
 
-    const setSpanValue = (value) => {
-        input.current.innerHTML = value;
-    }
-
-
-    return (
-        deleted ? null :
-            confirmDelete ? buildConfirmDeleteTag() : buildTag()
-    )
+    return deleted ? "" : confirmDelete ? buildConfirmDeleteTag() : buildTag();
 
     function buildTag() {
-        return <div className="ev-workflow-tag-container">
-            <button className={"ev-workflow-button ev-workflow-icon ev-workflow-edit"} onClick={editMode ? saveTag.bind(this) : toggleEdit.bind(this)}>
-                <i className={"mdi" + confirmDelete ? (editMode ? " mdi-check" : " mdi-edit") : ""}></i>
-            </button>
-            <span ref={input} tabIndex="0" className={"input ev-workflow-input" + (editMode ? " edit-mode" : "")} role="textbox" contenteditable={editMode ? "true" : "false"}></span>
-            <button className={"ev-workflow-button ev-workflow-icon ev-workflow-delete"} onClick={editMode ? cancelEdit : toggleConfirmDelete}>
-                <i className={editMode ? "mdi mdi-close" : "mdi mdi-delete"}></i>
-            </button>
-        </div>;
+        return (
+            <div className="ev-workflow-tag-container">
+                <button
+                    className={"ev-workflow-button ev-workflow-icon ev-workflow-edit"}
+                    onClick={editMode ? saveTag.bind(this) : toggleEdit.bind(this)}
+                >
+                    <i className={"mdi" + confirmDelete ? (editMode ? " mdi-check" : " mdi-edit") : ""}></i>
+                </button>
+                <span
+                    ref={input}
+                    tabIndex="0"
+                    className={"input ev-workflow-input" + (editMode ? " edit-mode" : "")}
+                    role="textbox"
+                    contentEditable={editMode ? "true" : "false"}
+                ></span>
+                <button
+                    className={"ev-workflow-button ev-workflow-icon ev-workflow-delete"}
+                    onClick={editMode ? cancelEdit : toggleConfirmDelete}
+                >
+                    <i className={editMode ? "mdi mdi-close" : "mdi mdi-delete"}></i>
+                </button>
+            </div>
+        );
     }
 
     function buildConfirmDeleteTag() {
-        return <div className="ev-workflow-tag-container">
-            <button className={"confirm-delete-button confirm-delete-button-left cancel-delete-button"} onClick={toggleConfirmDelete}>
-                Cancel
-            </button>
-            <span className="confirm-delete-text">Are you sure?</span>
-            <button className={"confirm-delete-button confirm-delete-button-right ev-workflow-delete"} onClick={deleteTag}>
-                Delete
-            </button>
-        </div>;
+        return (
+            <div className="ev-workflow-tag-container">
+                <button
+                    className={"confirm-delete-button confirm-delete-button-left cancel-delete-button"}
+                    onClick={toggleConfirmDelete}
+                >
+                    Cancel
+                </button>
+                <span className="confirm-delete-text">Are you sure?</span>
+                <button
+                    className={"confirm-delete-button confirm-delete-button-right ev-workflow-delete"}
+                    onClick={deleteTag}
+                >
+                    Delete
+                </button>
+            </div>
+        );
     }
 }

@@ -21,8 +21,13 @@
                 <description/>
             </property>
 
-            <property key="onAddAction" type="action" required="false">
-                <caption>Save Microflow</caption>
+            <property key="onClickMoreAction" type="action" required="false">
+                <caption>Microflow to open tag modal</caption>
+                <description/>
+            </property>
+
+            <property key="onTagAddAction" type="action" required="false">
+                <caption>Microflow to append new tag</caption>
                 <description/>
             </property>
 
