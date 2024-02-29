@@ -27,6 +27,12 @@ export function Tag(props) {
     }, [mounted, tagText, confirmDelete]);
 
     useEffect(() => {
+        // console.error('useEffect', props.tag);
+        // console.error('deleted', deleted);
+        if (deleted) {
+            setDeleted(false);
+            setConfirmDelete(false);
+        }
         setTagText(props.tag);
         setOriginalTagText(props.tag);
     }, [props.tag]);

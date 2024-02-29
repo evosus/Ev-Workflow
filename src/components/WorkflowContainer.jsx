@@ -37,9 +37,19 @@ export function WorkflowContainer(props) {
     };
 
     const deleteTag = (index, value) => {
-        console.warn("calling deleteTag");
-        saveTag(index, value, "");
+        console.warn("calling deleteTag", tagsArray);
+        const fullTagsArray = props.masterTagsList.value.split(delimiter).filter(i => i);
+        console.warn("fullTagsArray before", fullTagsArray);
+        fullTagsArray.splice(index, 1);
+        console.warn("fullTagsArray after", fullTagsArray);
+        const updatedMasterTagsList = fullTagsArray.join(delimiter);
+        props.masterTagsList.setValue(updatedMasterTagsList);
+        if (props.onChangeAction) {
+            props.onChangeAction.execute();
+        }
+        updateAllTags(updatedMasterTagsList);
     };
+
     const updateAllTags = value => {
         console.warn("calling updateAllTags");
         if (value !== undefined) {
