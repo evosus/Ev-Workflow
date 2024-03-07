@@ -18,17 +18,28 @@ export function WorkflowContainer(props) {
     const [tagCount, setTagCount] = useState(0);
     const [tagCountDisplay, setTagCountDisplay] = useState("");
 
+    // set mounted when render() is first called
     useEffect(() => {
         setMounted(true);
         return () => {};
     }, []);
 
+    // listen for changes to the masterTagsList attribute and update tags
+    useEffect(() => {
+        if (mounted) {
+            updateAllTags(props.masterTagsList.value);
+        }
+        return () => {};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.masterTagsList]);
+
+    // update state with new tag and call onChangeAction if set
     const saveTag = (index, oldValue, newValue) => {
-        console.warn("calling saveTag");
+        console.debug("calling saveTag");
         const fullTagsArray = props.masterTagsList.value.split(delimiter).filter(i => i);
         fullTagsArray.splice(index, 1, newValue);
         const updatedMasterTagsList = fullTagsArray.join(delimiter);
-        console.warn("Data is changing in WorkflowContainer - saveTag:", oldValue, "=>", newValue);
+        console.debug("Data is changing in WorkflowContainer - saveTag:", oldValue, "=>", newValue);
         props.masterTagsList.setValue(updatedMasterTagsList);
         if (props.onChangeAction) {
             props.onChangeAction.execute();
@@ -36,12 +47,13 @@ export function WorkflowContainer(props) {
         return true;
     };
 
+    // remove tag from list and update state
     const deleteTag = (index, value) => {
-        console.warn("calling deleteTag", tagsArray);
+        console.debug("calling deleteTag", tagsArray);
         const fullTagsArray = props.masterTagsList.value.split(delimiter).filter(i => i);
-        console.warn("fullTagsArray before", fullTagsArray);
+        console.debug("fullTagsArray before", fullTagsArray);
         fullTagsArray.splice(index, 1);
-        console.warn("fullTagsArray after", fullTagsArray);
+        console.debug("fullTagsArray after", fullTagsArray);
         const updatedMasterTagsList = fullTagsArray.join(delimiter);
         props.masterTagsList.setValue(updatedMasterTagsList);
         if (props.onChangeAction) {
@@ -50,8 +62,9 @@ export function WorkflowContainer(props) {
         updateAllTags(updatedMasterTagsList);
     };
 
+    // update state with new masterTagsList and rebuild tag components
     const updateAllTags = value => {
-        console.warn("calling updateAllTags");
+        console.debug("calling updateAllTags");
         if (value !== undefined) {
             const tagCount = value.split(delimiter).filter(i => i).length;
             var tagCountDisplay = tagCount - limit;
@@ -64,35 +77,28 @@ export function WorkflowContainer(props) {
                 .slice(0, limit);
             const newTagComponents = tagsArraySliced.map((tag, index) => (
                 <Tag
-                    key={index}
+                    key={crypto.randomUUID()}
                     tag={tag}
                     index={index}
                     saveTag={saveTag.bind(this)}
                     deleteTag={deleteTag.bind(this)}
                 />
             ));
-            console.warn("Data is changing in WorkflowContainer - updateAllTags:", "New value:", value);
+            console.debug("Data is changing in WorkflowContainer - updateAllTags:", "New value:", value);
             setMasterTagsList(value);
-            console.warn("setMasterTagsList", value);
+            console.debug("setMasterTagsList", value);
             setTagsArray(tagsArraySliced);
-            console.warn("setTagsArray", tagsArraySliced);
+            console.debug("setTagsArray", tagsArraySliced);
             setTagComponents(newTagComponents);
-            console.warn("setTagComponents", newTagComponents);
+            console.debug("setTagComponents", newTagComponents);
             setTagCount(tagCount);
             setTagCountDisplay(tagCountDisplay);
         }
     };
 
-    useEffect(() => {
-        if (mounted) {
-            updateAllTags(props.masterTagsList.value);
-        }
-        return () => {};
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.masterTagsList]);
-
+    // add a new tag to the front of the tags list
     const addTag = () => {
-        console.warn("calling addTag");
+        console.debug("calling addTag");
         onTagAddAction.execute(); //this was broken so I refactored it out to a mf
     };
 

@@ -23,10 +23,6 @@ Place your custom CSS here
     font-size: 20px;
 }
 
-.ev-workflow-icon:hover {
-    /* font-size: 22px; */
-}
-
 .ev-workflow-button {
     border: none;
     background: rgba(0, 0, 0, 0)
@@ -71,11 +67,6 @@ Place your custom CSS here
 
 .input,
 .textarea {
-  /* border: 1px solid #ccc; */
-  /* font-family: inherit; */
-  /* font-size: inherit; */
-  /* padding: 4px 6px; */
-  /* height: 100%; */
   white-space: nowrap;
   cursor: default;
 }
@@ -133,7 +124,6 @@ Place your custom CSS here
     display: flex;
     justify-content: start;
     align-items: center;
-    /* margin-top: 1px; */
 }
 
 .ev-workflow-admin-button-view-all {
