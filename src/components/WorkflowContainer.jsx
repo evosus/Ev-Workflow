@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Component, createElement, useEffect, useState } from "react";
 import { Tag } from "./Tag";
+import { v4 as uuidv4 } from "uuid";
 // eslint-disable-next-line sort-imports, no-unused-vars
 import * as mx from "mendix";
 
@@ -18,20 +19,25 @@ export function WorkflowContainer(props) {
     const [tagCount, setTagCount] = useState(0);
     const [tagCountDisplay, setTagCountDisplay] = useState("");
 
-    // set mounted when render() is first called
-    useEffect(() => {
-        setMounted(true);
-        return () => {};
-    }, []);
-
     // listen for changes to the masterTagsList attribute and update tags
     useEffect(() => {
         if (mounted) {
+            console.debug("Updating tags with masterTagsList:", props.masterTagsList.value);
             updateAllTags(props.masterTagsList.value);
         }
-        return () => {};
+        return () => {
+            console.debug("Cleaning up tags update effect");
+        };
+        // adding 'mounted' dependency to fix initial rendering bug that occurred when moving wdiget outside of sandbox.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.masterTagsList]);
+    }, [props.masterTagsList, mounted]);
+
+    // set mounted when render() is first called
+    useEffect(() => {
+        console.debug("WorkflowContainer mounted");
+        setMounted(true);
+        return () => {};
+    }, []);
 
     // update state with new tag and call onChangeAction if set
     const saveTag = (index, oldValue, newValue) => {
@@ -77,7 +83,7 @@ export function WorkflowContainer(props) {
                 .slice(0, limit);
             const newTagComponents = tagsArraySliced.map((tag, index) => (
                 <Tag
-                    key={index}
+                    key={uuidv4()}
                     tag={tag}
                     index={index}
                     saveTag={saveTag.bind(this)}
