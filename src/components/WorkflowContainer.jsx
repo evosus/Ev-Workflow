@@ -77,7 +77,7 @@ export function WorkflowContainer(props) {
                 .slice(0, limit);
             const newTagComponents = tagsArraySliced.map((tag, index) => (
                 <Tag
-                    key={crypto.randomUUID()}
+                    key={index}
                     tag={tag}
                     index={index}
                     saveTag={saveTag.bind(this)}
