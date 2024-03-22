@@ -9,8 +9,8 @@
     <properties>
         <propertyGroup caption="General">
             <property key="masterTagsList" type="attribute">
-                <caption>Master Tag String</caption>
-                <description>Master tag String attribute. This string should contain all your tags, the widget will split them up based on the delimiter.</description>
+                <caption>Tag String</caption>
+                <description>Workflow Tag String attribute. The string attribute that maintains all tags to be split on delimiter</description>
                 <attributeTypes>
                     <attributeType name="String"/>
                 </attributeTypes>
@@ -18,22 +18,22 @@
 
             <property key="onChangeAction" type="action" required="false">
                 <caption>On change</caption>
-                <description/>
+                <description>Mircoflow that handles Workflow onChange event</description>
             </property>
 
             <property key="onClickMoreAction" type="action" required="false">
-                <caption>Microflow to open tag modal</caption>
-                <description/>
+                <caption>Overflow Tags</caption>
+                <description>Microflow that handles opening of Workflow Overflow Overview event</description>
             </property>
 
             <property key="onTagAddAction" type="action" required="false">
-                <caption>Microflow to append new tag</caption>
-                <description/>
+                <caption>New Workflow Tag</caption>
+                <description>Microflow that handles addition of new Workflow Tag event</description>
             </property>
 
             <property key="delimiter" type="string" required="false" defaultValue="' '">
-                <caption>String to use as a delimiter between tags in the provided tags String.</caption>
-                <description>String to use as a delimiter between tags in the provided tags String.</description>
+                <caption>Delimiter</caption>
+                <description>Delimiter for Workflow.(currently must be comma)</description>
             </property>
         </propertyGroup>
     </properties>
