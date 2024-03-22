@@ -26,6 +26,7 @@ export function Tag(props) {
     // set span innerHTML to current tagText to mimick <input> behavior
     useEffect(() => {
         if (mounted && input.current != null) {
+            // eslint-disable-next-line no-use-before-define
             setSpanValue(tagText);
         }
     }, [mounted, tagText, confirmDelete]);
@@ -40,6 +41,7 @@ export function Tag(props) {
         }
         setTagText(props.tag);
         setOriginalTagText(props.tag);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.tag]);
 
     // set span innerHTML

@@ -111,7 +111,7 @@ export function WorkflowContainer(props) {
     return (
         <div className="ev-workflow-container">
             <button className="ev-workflow-admin-button ev-workflow-admin-button-add" onClick={addTag.bind(this)}>
-                <i className="mdi mdi-plus"></i>Add
+                Workflow: Add<i className="mdi mdi-plus"></i>
             </button>
             {tagComponents.map(tag => {
                 return tag;
