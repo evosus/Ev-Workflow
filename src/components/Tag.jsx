@@ -10,6 +10,12 @@ export function Tag(props) {
     const [tagText, setTagText] = useState(props.tag);
     const [originalTagText, setOriginalTagText] = useState(props.tag);
     const [deleted, setDeleted] = useState(false);
+    const handleKeyDown = event => {
+        const keyCode = event.keyCode || event.which;
+        if (keyCode === 13) {
+            event.preventDefault();
+        }
+    };
 
     // set mounted when render() is first called
     useEffect(() => {
@@ -83,26 +89,29 @@ export function Tag(props) {
     // build the normal tag component to view or edit
     function buildTag() {
         return (
-            <div className="ev-workflow-tag-container">
-                <button
-                    className={"ev-workflow-button ev-workflow-icon ev-workflow-edit"}
-                    onClick={editMode ? saveTag.bind(this) : toggleEdit.bind(this)}
-                >
-                    <i className={"mdi" + confirmDelete ? (editMode ? " mdi-check" : " mdi-edit") : ""}></i>
-                </button>
-                <span
-                    ref={input}
-                    tabIndex="0"
-                    className={"input ev-workflow-input" + (editMode ? " edit-mode" : "")}
-                    role="textbox"
-                    contentEditable={editMode ? "true" : "false"}
-                ></span>
-                <button
-                    className={"ev-workflow-button ev-workflow-icon ev-workflow-delete"}
-                    onClick={editMode ? cancelEdit : toggleConfirmDelete}
-                >
-                    <i className={editMode ? "mdi mdi-close" : "mdi mdi-delete"}></i>
-                </button>
+            <div className="ev-workflow-tag-padding">
+                <div className="ev-workflow-tag-container">
+                    <button
+                        className={"ev-workflow-button ev-workflow-icon ev-workflow-edit"}
+                        onClick={editMode ? saveTag.bind(this) : toggleEdit.bind(this)}
+                    >
+                        <i className={"mdi" + confirmDelete ? (editMode ? " mdi-check" : " mdi-edit") : ""}></i>
+                    </button>
+                    <span
+                        ref={input}
+                        tabIndex="0"
+                        className={"input ev-workflow-input" + (editMode ? " edit-mode" : "")}
+                        role="textbox"
+                        contentEditable={editMode ? "true" : "false"}
+                        onKeyDown={handleKeyDown}
+                    ></span>
+                    <button
+                        className={"ev-workflow-button ev-workflow-icon ev-workflow-delete"}
+                        onClick={editMode ? cancelEdit : toggleConfirmDelete}
+                    >
+                        <i className={editMode ? "mdi mdi-close" : "mdi mdi-delete"}></i>
+                    </button>
+                </div>
             </div>
         );
     }
