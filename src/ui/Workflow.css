@@ -1,7 +1,3 @@
-/*
-Place your custom CSS here
-*/
-
 .ev-workflow-container {
     display: flex;
     flex-wrap: wrap;
@@ -20,9 +16,52 @@ Place your custom CSS here
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
+.ev-workflow-admin-button-add input[type="text"] {
+    border: none;
+    background-color: transparent;
+    width: 100px;
+    outline: none;
+    padding: 0 5px;
+    margin-right: 5px; 
+}
+
+.confirmation-modal {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    text-align: center;
+}
+
+.confirmation-modal p {
+    margin-bottom: 5px;
+}
+
+.confirmation-modal button {
+    margin: 5px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirmation-modal button:hover {
+    background-color: #f0f0f0;
+}
+
+.confirmation-modal button + button {
+    margin-left: 10px;
+}
+
+.ev-workflow-admin-button-add input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
 .ev-workflow-icon {
     border: none;
-    opacity: 0;
+    opacity: 1;
     font-size: 20px;
 }
 
@@ -31,34 +70,10 @@ Place your custom CSS here
     background: rgba(0, 0, 0, 0)
 }
 
-.ev-workflow-edit:hover {
-    background-color: lightgreen;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.ev-workflow-delete:hover {
-    background-color: lightcoral;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.delete-mode {
-    background-color: lightcoral;
-}
-
-.edit-mode {
-    background-color: white;
-}
-
 .ev-workflow-input {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.ev-workflow-tag-container:hover .ev-workflow-icon {
-    opacity: 1;
-    animation: fade-in 0.25s;
+    padding: 16px 10px; /* Adjust padding to provide space around the text */
+    box-sizing: border-box; /* Ensure padding is included in the element's total width */
+    vertical-align: text-bottom !important; /* Align text vertically within the input field */
 }
 
 @keyframes fade-in {
@@ -84,36 +99,11 @@ Place your custom CSS here
 }
 .input-wrap .input {
   position: absolute;
-  /* width: 100%; */
   left: 0;
 }
+
 .width-machine {
-  /*   Sort of a magic number to add extra space for number spinner */
   padding: 0 1rem;
-}
-
-.confirm-delete-text {
-    width: 125px;
-    padding: 0px 5px;
-    text-align: center;
-}
-
-.confirm-delete-button {
-    background-color: lightcoral;
-    border: none;
-    height: 100%;
-}
-
-.confirm-delete-button-left {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    background-color: dimgray;
-    color: white;
-}
-
-.confirm-delete-button-right {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 
 .ev-workflow-admin-button {
@@ -135,10 +125,9 @@ Place your custom CSS here
 
 .ev-workflow-admin-button-add,
 .ev-workflow-admin-button-view-all {
-    transition: background-color 0.3s ease;
+    transition: background-color 0.6s ease;
 }
 
-.ev-workflow-admin-button-add:hover,
 .ev-workflow-admin-button-view-all:hover {
     background-color: rgba(255, 165, 0);
 }

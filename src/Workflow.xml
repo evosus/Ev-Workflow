@@ -8,9 +8,18 @@
     <icon>iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAB7FBMVEUAAAD4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL4lSL///+j/33BAAAAonRSTlMAAAFQrt3x8d2uYBYRyvjFUwYk5fODCyzr+oQFAQUAJOTzVh1PEc3GGWmoBQGa+WW14yVP97PicQ+74/bQHUrv9vb/hgMDgfv35O4Nlvzlt9s7DofzuGv61kEABlbM/PprHMzjaAsZa7/u/swdXvb4sEYLCzJghUsHjvzzvXdCJBUPDwIPj/f/9uXZyWUECGDQ+/zSYwoAHnC/6/39679xHgBIp/diAAAAAWJLR0Sjx9rvGgAAAAd0SU1FB+MCHBETCTncSLoAAAEWSURBVBjTTdBTkwQxFAXge3bWtm3btm3btm3b3vzSTXq6Z/o8JKmvbuVWHSIeGGgMjYxNTM3MLQCSA0srJsXaxtZOUdg7MDmOTs6ywsVVQebm7gHy9PIm+PjqkPn5gwICAQQF65GFhFJYeAQQGaXC6BiKjYvnowmJKk2iZJbCMTVNhemUwTKzuGbn6DGX8lh+QSFQVFyiw1IqY6xcw0crKqsUrKYaftbWca1vaJSxiZpb+NXa1g50dHZ1C+vppb5+8RgYHOLDwyOjY+NsYpIwNS10ZnZunvPC4tLyCgira+vSTxubW9s7u3v7B6IlHB4daxecnJ6dX1xeSdXh+ub2Tsv3D49Pcvd4fnl9e//4/Pr++f0T9A/uY5NYz9eQEgAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0wMi0yOFQxNzoxOTowOS0wNTowMK5xUa4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMDItMjhUMTc6MTk6MDktMDU6MDDfLOkSAAAAAElFTkSuQmCC</icon>
     <properties>
         <propertyGroup caption="General">
+
             <property key="masterTagsList" type="attribute">
                 <caption>Tag String</caption>
                 <description>Workflow Tag String attribute. The string attribute that maintains all tags to be split on delimiter</description>
+                <attributeTypes>
+                    <attributeType name="String"/>
+                </attributeTypes>
+            </property>
+
+            <property key="newTag" type="attribute">
+                <caption>New Tag Attribute</caption>
+                <description>string attribute for maintaining state of new tag</description>
                 <attributeTypes>
                     <attributeType name="String"/>
                 </attributeTypes>
@@ -35,6 +44,11 @@
                 <caption>Delimiter</caption>
                 <description>Delimiter for Workflow.(currently must be comma)</description>
             </property>
+            <property key="limit" type="string" required="false" defaultValue="5">
+                <caption>Limit</caption>
+                <description>Limit number of displayed tags</description>
+            </property>
+
         </propertyGroup>
     </properties>
 </widget>
